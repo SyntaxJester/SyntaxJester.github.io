@@ -1,1 +1,695 @@
-1
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wsqstar/ResHosting@0.031/build/js/Sakura.js"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="美区, apple id, 使用教程" name="keywords">
+    <meta content="裤佬共享小火箭" name="description">
+    <title>裤佬共享小火箭</title>
+    <link href="https://mpimg.cn/view.php/3158fcd55edc353685e224f230f696c2.jpg" rel="shortcut icon">
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.staticfile.org/flag-icons/6.6.6/css/flag-icons.min.css" rel="stylesheet">
+    <style>
+        /* 跑马灯广告样式 */
+        .marquee-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255,0,0,0.8), 
+                rgba(255,165,0,0.8), 
+                rgba(255,255,0,0.8), 
+                rgba(0,128,0,0.8), 
+                rgba(0,0,255,0.8), 
+                rgba(75,0,130,0.8), 
+                rgba(238,130,238,0.8));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            padding: 10px 0;
+            z-index: 9998;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            overflow: hidden;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+        
+        .marquee-content a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .marquee-content a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 基础样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 爆闪背景层 */
+        #flash-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        /* 主内容区域 */
+        main {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            max-width: 800px;
+            margin: 80px auto 30px; /* 增加上边距给跑马灯留空间 */
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 深色模式调整 */
+        body.dark-mode main {
+            background: rgba(30, 30, 30, 0.85);
+            color: #ffffff;
+        }
+        
+        body.dark-mode ol {
+            color: #e0e0e0;
+        }
+        
+        /* 基础样式 */
+        a {
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .border-success {
+            border-color: #6fd088 !important;
+        }
+        
+        :root {
+            --bs-success-rgb: 111, 208, 136;
+        }
+        
+        /* 音乐播放器样式 - 修改高度 */
+        .music-player {
+            margin: 10px auto; /* 减少上下边距 */
+            max-width: 300px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 10px 15px; /* 减少内边距 */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 70px; /* 固定高度 */
+        }
+        
+        body.dark-mode .music-player {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 按钮样式调整 - 新增炫彩文字效果和渐变粉描边 */
+        .small-btn {
+            padding: 10px 16px;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 0 0 2px rgba(255, 182, 193, 0.3);
+        }
+        
+        .small-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, 
+                rgba(255, 192, 203, 0.5), 
+                rgba(255, 182, 193, 0.3), 
+                rgba(255, 160, 180, 0.2));
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .small-btn span {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #ff0000, #ff9900, #33cc33, #0099ff, #6633cc, #cc0066);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 5s ease infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        .small-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(255, 182, 193, 0.4);
+        }
+        
+        /* 迷你按钮样式 - 修改为统一大小 */
+        .mini-btn {
+            padding: 6px 10px;
+            font-size: 12px;
+            margin-left: 5px;
+            display: inline-block;
+            vertical-align: middle;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 0 0 1px rgba(255, 182, 193, 0.3);
+        }
+        
+        .mini-btn::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            border-radius: 6px;
+            background: linear-gradient(45deg, 
+                rgba(255, 192, 203, 0.5), 
+                rgba(255, 182, 193, 0.3), 
+                rgba(255, 160, 180, 0.2));
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .mini-btn span {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(90deg, #ff0000, #ff9900, #33cc33, #0099ff, #6633cc, #cc0066);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 5s ease infinite;
+        }
+        
+        .mini-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(255, 182, 193, 0.4);
+        }
+        
+        /* 主题切换按钮样式 */
+        .theme-switch {
+            position: fixed;
+            top: 50px; /* 调整位置避免与跑马灯重叠 */
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        .theme-switch .btn {
+            width: 45px;
+            height: 45px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-switch .btn:hover {
+            transform: scale(1.1);
+        }
+        
+        body.dark-mode .theme-switch .btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 列表样式 */
+        ol {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        body.dark-mode ol {
+            background: rgba(30, 30, 30, 0.7);
+        }
+        
+        /* 图片样式 */
+        img.rounded-circle {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        img.rounded-circle:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 标题样式 - 新增炫彩爆闪效果 */
+        .title-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            margin: 0;
+            background: linear-gradient(90deg, #ff0000, #ff9900, #33cc33, #0099ff, #6633cc, #cc0066);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow 5s ease infinite, pulse 0.5s ease infinite alternate;
+        }
+        
+        .title-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            filter: blur(20px);
+            z-index: 1;
+            opacity: 0.7;
+            animation: rainbow 5s ease infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        
+        .title-flash {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            opacity: 0;
+            animation: flash 3s ease infinite;
+        }
+        
+        @keyframes flash {
+            0%, 100% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        
+        /* 嵌入内容样式 - 修改为炫彩渐变透明效果 */
+        .embed-container {
+            margin-top: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 0, 0.2), 
+                rgba(0, 255, 0, 0.2), 
+                rgba(0, 0, 255, 0.2), 
+                rgba(255, 255, 0, 0.2));
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+        }
+        
+        .embed-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+        
+        .embed-container object {
+            position: relative;
+            z-index: 2;
+            border-radius: 13px;
+            overflow: hidden;
+            background: transparent;
+        }
+        
+        .embed-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            animation: gradientBG 5s ease infinite, pulseGlow 2s ease infinite alternate;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+        }
+        
+        body.dark-mode .embed-container {
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 0, 0.3), 
+                rgba(0, 255, 0, 0.3), 
+                rgba(0, 0, 255, 0.3), 
+                rgba(255, 255, 0, 0.3));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        body.dark-mode .embed-container::before {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+                margin: 15px;
+                margin-top: 70px; /* 移动端调整上边距 */
+            }
+            
+            ol {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .embed-container {
+                height: 400px;
+            }
+            
+            .marquee-container {
+                font-size: 12px;
+                padding: 8px 0;
+            }
+            
+            .theme-switch {
+                top: 40px; /* 移动端调整主题按钮位置 */
+            }
+            
+            .mini-btn {
+                padding: 5px 8px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-center container-fluid py-5 m-auto">
+    <!-- 跑马灯广告 -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <a href="https://t.me/stymei1" target="_blank">✈️点击关注我的Telegram频道 ✈️</a>
+            <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg" target="_blank">🚀点击获取永久免费节点订阅🚀</a>
+            <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1" target="_blank">📺点击获取永久IPTV订阅📺</a>
+            <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" target="_blank">🎬点击获取永久TVbox多仓接口</a>
+        </div>
+    </div>
+    
+    <!-- 爆闪背景元素 -->
+    <div id="flash-bg"></div>
+    
+    <!-- 主题切换按钮 -->
+    <div class="theme-switch">
+        <button id="themeToggle" class="btn btn-outline-secondary">
+            <i id="themeIcon" class="bi bi-moon"></i>
+        </button>
+    </div>
+
+    <main>
+        <img alt="" class="shadow mb-4 bg-body-tertiary rounded-circle" height="120" width="120" src="https://is4-ssl.mzstatic.com/image/thumb/Purple126/v4/c5/50/ad/c550ad28-d7bb-209c-05a6-849296bfddc5/AppIcon-0-1x_U007emarketing-0-10-0-0-85-220.png/230x0w.webp">
+        
+        <!-- 修改后的炫彩爆闪标题 -->
+        <div class="title-container">
+            <div class="title-glow"></div>
+            <div class="title-flash"></div>
+            <h1 class="mb-3">裤佬共享小火箭</h1>
+        </div>
+        
+        <div class="mx-1 row justify-content-center">
+            <ol class="col-auto text-start">
+                <li>打开iPhone/iPad的蓝色<strong>&nbsp; AppStore &nbsp;</strong>软件（请不要打开设置）</li>
+                <li>右上角点击<strong>&nbsp; 个人头像&nbsp; </strong>进入账户，下拉到最底找到并点击<strong>&nbsp;
+                    退出登录&nbsp;</strong></li>
+                <li><strong> &nbsp;复制&nbsp;</strong>本网站 共享账号和密码</li>
+                <li>点击登录，提示<strong> &nbsp;Apple id安全&nbsp;</strong>，请点击<strong> &nbsp;其他选项-不升级&nbsp;</strong>
+                </li>
+                <li>搜索<a class="btn btn-primary mini-btn" href="https://apps.apple.com/us/app/shadowrocket/id932747118" target="_blank"><span>Shadowrocket下载</span></a></li>
+                <li>用完务必<strong>&nbsp;退出登录&nbsp;</strong>，避免你的手机被锁<a class="btn btn-primary mini-btn" href="https://s0.mall.tcl.com/group1/M00/00/89/CvoGBGd37jmAL0b-AE72lMZF4xc097.mp4" target="_blank"><span>不懂就点视频教程</span></a></li>
+            </ol>
+
+            <!-- 内置音乐播放器 - 高度已减小 -->
+            <div class="music-player">
+                <audio controls autoplay loop style="width:100%">
+                    <source src="https://mpimg.cn/view.php/741767c6d06430f1e26755213744ac64.mp3" type="audio/mpeg">
+                    您的浏览器不支持音频元素。
+                </audio>
+                <p class="mt-2 mb-0"> ラムジ</p>
+            </div>
+        </div>
+        
+        <!-- 按钮布局 -->
+        <div class="container mb-4">
+            <div class="row g-2 justify-content-center">
+                <!-- 第一行 -->
+                <div class="col-6 col-md-6">
+                    <a class="btn btn-outline-primary small-btn w-100" href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg"><span>免费节点订阅</span></a>
+                </div>
+                <div class="col-6 col-md-6">
+                    <a class="btn btn-outline-primary small-btn w-100" href="https://t.me/stymei1"><span>关注TG频道</span></a>
+                </div>
+                
+                <!-- 第二行 -->
+                <div class="col-6 col-md-6">
+                    <a class="btn btn-outline-primary small-btn w-100" href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1"><span>免费IPTV订阅</span></a>
+                </div>
+                <div class="col-6 col-md-6">
+                    <a class="btn btn-outline-primary small-btn w-100" href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2"><span>免费TVbox接口</span></a>
+                </div>
+                
+                <!-- 第三行 -->
+                <div class="col-6 col-md-6">
+                    <a class="btn btn-outline-primary small-btn w-100" href="https://jsnzkpg.blogspot.com"><span>关注我的博客</span></a>
+                </div>
+                <div class="col-6 col-md-6">
+                    <a class="btn btn-outline-primary small-btn w-100" href="https://github.com/Jsnzkpg/Jsnzkpg"><span>关注我的Github</span></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 修改后的炫彩渐变透明嵌入内容区域 -->
+        <div class="embed-container">
+            <object data="https://aunlock.laomaos.com/share/UVeEcANtgk" width="100%" height="666"></object>
+        </div>
+    </main>
+
+    <script>
+        // 百度统计代码
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?590823a3f98b48ee4f4bfa38f7c85aea";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+
+        // 爆闪背景动画 - 减慢版
+        function createFlashEffect() {
+            const bg = document.getElementById('flash-bg');
+            const colors = [
+                '#ff0000', '#00ff00', '#0000ff', '#ffff00', 
+                '#ff00ff', '#00ffff', '#ff9900', '#9900ff',
+                '#ff0099', '#00ff99', '#99ff00', '#0099ff'
+            ];
+            
+            function flash() {
+                // 随机颜色
+                const color1 = colors[Math.floor(Math.random() * colors.length)];
+                const color2 = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 创建渐变
+                bg.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+                
+                // 随机大小和位置变化
+                const scale = 1 + Math.random() * 0.2; // 减小缩放幅度
+                const x = (Math.random() - 0.5) * 10; // 减小移动幅度
+                const y = (Math.random() - 0.5) * 10;
+                bg.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
+                
+                // 减慢闪烁速度 (500-1500ms)
+                const speed = 500 + Math.random() * 1000;
+                setTimeout(flash, speed);
+            }
+            
+            // 开始动画
+            flash();
+            
+            // 添加鼠标移动效果
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                bg.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+            });
+        }
+        
+        // 主题切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+            
+            // 检查本地存储中的主题偏好
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                themeIcon.classList.remove('bi-moon');
+                themeIcon.classList.add('bi-sun');
+            }
+            
+            // 切换主题
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    themeIcon.classList.remove('bi-moon');
+                    themeIcon.classList.add('bi-sun');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeIcon.classList.remove('bi-sun');
+                    themeIcon.classList.add('bi-moon');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+            
+            // 检测系统主题偏好
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            if (prefersDarkScheme.matches && !savedTheme) {
+                body.classList.add('dark-mode');
+                themeIcon.classList.remove('bi-moon');
+                themeIcon.classList.add('bi-sun');
+            }
+            
+            // 监听系统主题变化
+            prefersDarkScheme.addEventListener('change', e => {
+                if (!savedTheme) {
+                    if (e.matches) {
+                        body.classList.add('dark-mode');
+                        themeIcon.classList.remove('bi-moon');
+                        themeIcon.classList.add('bi-sun');
+                    } else {
+                        body.classList.remove('dark-mode');
+                        themeIcon.classList.remove('bi-sun');
+                        themeIcon.classList.add('bi-moon');
+                    }
+                }
+            });
+            
+            // 启动爆闪效果
+            createFlashEffect();
+            
+            // 标题随机闪光效果
+            function titleRandomFlash() {
+                const flashes = document.querySelectorAll('.title-flash');
+                flashes.forEach(flash => {
+                    // 随机延迟启动动画
+                    const delay = Math.random() * 2000;
+                    setTimeout(() => {
+                        flash.style.animationDelay = `${delay}ms`;
+                        flash.style.opacity = '0';
+                    }, delay);
+                });
+                
+                // 随机改变光晕大小
+                setInterval(() => {
+                    const glows = document.querySelectorAll('.title-glow');
+                    glows.forEach(glow => {
+                        const size = 1 + Math.random() * 0.5;
+                        glow.style.transform = `scale(${size})`;
+                    });
+                }, 3000);
+            }
+            
+            titleRandomFlash();
+            
+            // 为嵌入容器添加随机颜色变化
+            const embedContainer = document.querySelector('.embed-container');
+            if (embedContainer) {
+                setInterval(() => {
+                    const hue = Math.floor(Math.random() * 360);
+                    embedContainer.style.borderColor = `hsla(${hue}, 80%, 60%, 0.7)`;
+                }, 3000);
+            }
+            
+            // 跑马灯广告内容复制，实现无缝循环
+            const marqueeContent = document.querySelector('.marquee-content');
+            if (marqueeContent) {
+                // 复制内容以实现无缝循环
+                marqueeContent.innerHTML += marqueeContent.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>
