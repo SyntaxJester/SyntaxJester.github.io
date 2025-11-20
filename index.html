@@ -2,236 +2,225 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/wsqstar/ResHosting@0.031/build/js/Sakura.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
-    <meta name="theme-color" content="#ffecf5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>裤佬书签收藏</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background-color: #ffecf5;
-            color: #333;
+            background-color: #0a0a1a;
+            color: #e0e0e0;
             line-height: 1.6;
             padding: 20px;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.8) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(255,230,240,0.7) 0%, transparent 30%);
-            -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
         
         .container {
-            max-width: min(1000px, 95vw);
+            max-width: min(1200px, 95vw);
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            padding: clamp(15px, 3vw, 30px);
-            backdrop-filter: blur(5px);
             position: relative;
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            transition: all 0.3s ease;
+            z-index: 1;
         }
         
         header {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed rgba(255, 105, 180, 0.3);
+            margin-bottom: 30px;
+            padding: 20px 0;
             position: relative;
-        }
-        
-        header::after {
-            content: "✧･ﾟ: *✧･ﾟ:* *:･ﾟ✧*:･ﾟ✧";
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            right: 0;
-            color: #ff69b4;
-            font-size: clamp(10px, 2.5vw, 12px);
-            letter-spacing: 2px;
         }
         
         h1 {
             color: #ff69b4;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            font-size: clamp(1.8em, 6vw, 2.2em);
+            margin-bottom: 15px;
+            font-size: clamp(2em, 6vw, 3em);
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
             position: relative;
             display: inline-block;
         }
         
         h1::before, h1::after {
-            content: "☆";
+            content: "✦";
             color: #ffb6c1;
-            margin: 0 clamp(5px, 2vw, 10px);
+            margin: 0 clamp(5px, 2vw, 15px);
+            animation: twinkle 3s infinite alternate;
         }
         
         .description {
-            color: #888;
-            font-size: clamp(14px, 3.5vw, 16px);
-            margin-top: 5px;
+            color: #a0a0c0;
+            font-size: clamp(14px, 3.5vw, 18px);
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin: 5px auto 10px;
-            border: 4px solid #ffb6c1;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            margin: 15px auto;
+            border: 4px solid #ff69b4;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
             background-image: url('https://mpimg.cn/view.php/9c4762353d2e1bb8490fc259459b7b60.jpeg');
             background-size: cover;
             background-position: center;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             position: relative;
             z-index: 1;
         }
         
         .avatar:hover {
             transform: rotate(10deg) scale(1.1);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
         }
         
-        /* 新增的特殊链接区域样式 */
         .special-links {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 15px auto;
+            margin: 20px auto;
             max-width: 90%;
         }
         
         .special-link {
             position: relative;
-            padding: 8px 15px;
-            background: linear-gradient(135deg, rgba(255,182,193,0.3), rgba(255,105,180,0.3));
+            padding: 8px 16px;
+            background: linear-gradient(135deg, rgba(255,182,193,0.2), rgba(255,105,180,0.2));
             border-radius: 20px;
             text-decoration: none;
-            color: #ff69b4;
+            color: #ff8fab;
             font-weight: bold;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             border: 1px solid rgba(255, 105, 180, 0.3);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
+            overflow: hidden;
+        }
+        
+        .special-link::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .special-link:hover::before {
+            left: 100%;
         }
         
         .special-link:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
-            background: linear-gradient(135deg, rgba(255,182,193,0.5), rgba(255,105,180,0.5));
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            background: linear-gradient(135deg, rgba(255,182,193,0.3), rgba(255,105,180,0.3));
         }
         
-        .special-link::before {
-            content: "✦";
-            margin-right: 5px;
+        .special-link i {
+            margin-right: 6px;
             font-size: 12px;
-        }
-        
-        .special-link:nth-child(2n)::before {
-            content: "✧";
         }
         
         .bookmarks {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+            gap: 25px;
+            margin-top: 20px;
         }
         
         .bookmark {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 15px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            background: linear-gradient(145deg, rgba(30, 20, 50, 0.8), rgba(20, 15, 35, 0.9));
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(100, 100, 200, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(5px);
         }
         
+        /* 移除卡片上方的加粗描边，改为更立体的设计 */
         .bookmark::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ffb6c1, #ff69b4, #ffb6c1);
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,105,180,0.1) 0%, rgba(157,78,221,0.1) 50%, rgba(67,97,238,0.1) 100%);
+            border-radius: 15px;
+            z-index: -1;
         }
         
-        .bookmark:hover, .bookmark:focus {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
-            background-color: white;
-        }
-        
-        .bookmark a {
-            text-decoration: none;
-            color: #555;
-            display: block;
-            outline: none;
-            width: 100%;
-            padding: 8px 0;
-            margin: 5px 0;
+        .bookmark:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(100, 100, 200, 0.4);
+            border-color: rgba(255, 105, 180, 0.5);
         }
         
         .bookmark-description {
-            color: #333;
-            font-size: 25px;
-            margin-bottom: 8px;
-            line-height: 1.5;
+            color: #ff8fab;
+            font-size: 22px;
+            margin-bottom: 15px;
+            line-height: 1.4;
             font-weight: bold;
-        }
-        
-        .bookmark-title {
-            font-weight: bold;
-            font-size: clamp(16px, 4vw, 18px);
-            color: #ff69b4;
-            position: relative;
-            padding-left: 25px;
             text-align: center;
-            margin-bottom: 8px;
+            position: relative;
+            padding-bottom: 10px;
         }
         
-        .bookmark-title::before {
-            content: "❀";
+        .bookmark-description::after {
+            content: "";
             position: absolute;
-            left: 5px;
-            color: #ffb6c1;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff69b4, transparent);
         }
         
         .bookmark-links {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            gap: 12px;
         }
         
-        /* 修改后的链接样式 - 一排一个按钮 */
         .link-row {
             display: flex;
             justify-content: center;
-            margin-bottom: 10px;
             flex-grow: 1;
         }
         
         .link-item {
             flex: 1;
             text-align: center;
-            margin: 0 3px;
+            margin: 0 5px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -239,11 +228,11 @@
         
         .link-item a {
             display: block;
-            padding: 15px 8px;
-            background-color: rgba(255, 182, 193, 0.2);
-            border-radius: 8px;
+            padding: 15px 10px;
+            background: linear-gradient(135deg, rgba(70, 70, 120, 0.3), rgba(50, 50, 90, 0.5));
+            border-radius: 10px;
             font-size: 16px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -253,49 +242,73 @@
             line-height: 1.3;
             height: 100%;
             min-height: 60px;
+            color: #e0e0e0;
+            text-decoration: none;
+            border: 1px solid rgba(100, 100, 200, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-item a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .link-item a:hover::before {
+            left: 100%;
         }
         
         .link-item a:hover {
-            background-color: rgba(255, 105, 180, 0.3);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(100, 100, 180, 0.4), rgba(70, 70, 140, 0.6));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(100, 100, 200, 0.3);
+            border-color: rgba(255, 105, 180, 0.5);
         }
         
-        /* 跑马灯广告位 - 修改为单个链接 */
         .marquee-container {
             width: 100%;
             overflow: hidden;
-            background: linear-gradient(90deg, rgba(255,182,193,0.3), rgba(255,105,180,0.3));
-            border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 10px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: linear-gradient(90deg, rgba(50, 30, 80, 0.5), rgba(80, 50, 120, 0.5));
+            border-radius: 10px;
+            margin: 30px 0;
+            padding: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            border: 1px solid rgba(100, 100, 200, 0.3);
         }
         
         .marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 20s linear infinite;
+            animation: marquee 25s linear infinite;
             padding-left: 100%;
         }
         
         .marquee-content {
             display: inline-block;
             margin-right: 50px;
-            color: #ff69b4;
+            color: #ff8fab;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
         }
         
         .marquee-link {
-            color: #ff69b4;
+            color: #ff8fab;
             text-decoration: none;
             transition: all 0.3s ease;
             padding: 0 20px;
+            position: relative;
         }
         
         .marquee-link:hover {
-            color: #ff1493;
-            text-decoration: underline;
+            color: #ff69b4;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
         }
         
         @keyframes marquee {
@@ -305,182 +318,84 @@
         
         footer {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed rgba(255, 105, 180, 0.3);
-            color: #888;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(100, 100, 200, 0.3);
+            color: #a0a0c0;
             font-size: clamp(12px, 3vw, 14px);
             position: relative;
         }
         
         footer::before {
-            content: "~";
-            color: #ffb6c1;
-            letter-spacing: 5px;
-        }
-        
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-        
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .theme-toggle i {
-            font-size: 20px;
+            content: "✦ ✦ ✦";
             color: #ff69b4;
+            letter-spacing: 10px;
+            display: block;
+            margin-bottom: 10px;
         }
-
-        /* 音乐播放器样式 */
+        
         .music-player {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, rgba(50, 30, 80, 0.8), rgba(80, 50, 120, 0.8));
+            border: 1px solid rgba(100, 100, 200, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 100;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
         
         .music-player:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1) rotate(-15deg);
+            box-shadow: 0 8px 20px rgba(100, 100, 200, 0.4);
         }
         
         .music-player i {
-            font-size: 20px;
-            color: #ff69b4;
-        }
-        
-        /* 金光闪闪动画样式 */
-        #golden-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(255,215,0,0.3), rgba(255,165,0,0.2));
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0;
-            animation: goldenPulse 8s infinite;
-        }
-        
-        .golden-star {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,215,0,0.8));
-            border-radius: 50%;
-            box-shadow: 0 0 10px 2px rgba(255,215,0,0.8);
-            animation: twinkle 3s infinite alternate;
-        }
-        
-        @keyframes goldenPulse {
-            0% { opacity: 0.1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 0.1; }
+            font-size: 22px;
+            color: #ff8fab;
         }
         
         @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0.3; transform: scale(0.8); }
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
         
-        @media (hover: none) {
-            .bookmark:hover {
-                transform: none;
-            }
-            
-            .bookmark:active {
-                transform: scale(0.98);
-            }
-            
-            .theme-toggle:hover {
-                transform: none;
-            }
-            
-            .avatar:hover {
-                transform: none;
-            }
-            
-            .special-link:hover {
-                transform: none;
-            }
-
-            .music-player:hover {
-                transform: none;
-            }
-            
-            .link-item a:hover {
-                transform: none;
-            }
-        }
-        
-        @media (max-width: 400px) {
+        @media (max-width: 768px) {
             body {
                 padding: 10px;
             }
             
             .avatar {
-                width: 80px;
-                height: 80px;
-                margin: 0 auto 8px;
+                width: 100px;
+                height: 100px;
             }
             
             .bookmarks {
-                gap: 10px;
+                gap: 15px;
             }
             
             .bookmark {
-                padding: 12px;
+                padding: 15px;
             }
             
             .bookmark-description {
                 font-size: 20px;
             }
             
-            .bookmark-title {
-                font-size: clamp(15px, 4vw, 16px);
+            .music-player {
+                width: 45px;
+                height: 45px;
             }
             
-            .theme-toggle {
-                width: 35px;
-                height: 35px;
-                top: 15px;
-                right: 15px;
-            }
-
-            .music-player {
-                width: 35px;
-                height: 35px;
-                bottom: 15px;
-                right: 15px;
+            .music-player i {
+                font-size: 20px;
             }
             
             .special-links {
@@ -494,112 +409,49 @@
             
             .link-item a {
                 font-size: 14px;
-                padding: 10px 6px;
-                min-height: 45px;
+                padding: 12px 8px;
+                min-height: 50px;
             }
             
             .marquee-content {
-                font-size: 14px;
+                font-size: 16px;
             }
         }
         
-        body.dark-mode {
-            background-color: #1a0a0f;
-            color: #e0e0e0;
-        }
-        
-        body.dark-mode .container {
-            background-color: rgba(30, 15, 20, 0.9);
-            color: #e0e0e0;
-            border-color: rgba(255, 105, 180, 0.2);
-        }
-        
-        body.dark-mode .bookmark {
-            background-color: rgba(40, 20, 30, 0.8);
-            border-color: rgba(255, 105, 180, 0.2);
-        }
-        
-        body.dark-mode .bookmark:hover, 
-        body.dark-mode .bookmark:focus {
-            background-color: rgba(50, 25, 35, 0.9);
-        }
-        
-        body.dark-mode .bookmark a {
-            color: #d0d0d0;
-        }
-        
-        body.dark-mode .bookmark-description {
-            color: #e0e0e0;
-        }
-        
-        body.dark-mode .bookmark-title {
-            color: #ff69b4;
-        }
-        
-        body.dark-mode .theme-toggle {
-            background-color: rgba(40, 20, 30, 0.8);
-            border-color: rgba(255, 105, 180, 0.2);
-        }
-        
-        body.dark-mode .avatar {
-            border-color: #ff69b4;
-            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
-        }
-        
-        body.dark-mode .special-link {
-            background: linear-gradient(135deg, rgba(150,50,100,0.3), rgba(200,80,120,0.3));
-            color: #ff8fab;
-            border-color: rgba(255, 105, 180, 0.2);
-        }
-        
-        body.dark-mode .special-link:hover {
-            background: linear-gradient(135deg, rgba(150,50,100,0.5), rgba(200,80,120,0.5));
-        }
-
-        body.dark-mode .music-player {
-            background-color: rgba(40, 20, 30, 0.8);
-            border-color: rgba(255, 105, 180, 0.2);
-        }
-        
-        body.dark-mode .link-item a {
-            background-color: rgba(150, 50, 100, 0.2);
-            color: #e0e0e0;
-        }
-        
-        body.dark-mode .link-item a:hover {
-            background-color: rgba(200, 80, 120, 0.3);
-        }
-        
-        body.dark-mode .marquee-container {
-            background: linear-gradient(90deg, rgba(150,50,100,0.3), rgba(200,80,120,0.3));
-        }
-        
-        body.dark-mode .marquee-content {
-            color: #ff8fab;
-        }
-        
-        body.dark-mode .marquee-link {
-            color: #ff8fab;
-        }
-        
-        body.dark-mode .marquee-link:hover {
-            color: #ff69b4;
+        @media (max-width: 480px) {
+            .bookmarks {
+                grid-template-columns: 1fr;
+            }
+            
+            .special-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .special-link {
+                width: 90%;
+                justify-content: center;
+            }
+            
+            .link-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .link-item {
+                margin: 0;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- 金光闪闪动画层 -->
-    <div id="golden-overlay"></div>
+    <!-- 星空背景 -->
+    <canvas id="stars"></canvas>
     
     <!-- 音乐播放器 -->
     <audio id="bgMusic" loop>
         <source src="https://mpimg.cn/view.php/0557b9154622c5a1f73bbfc6e7d380bf.mp3" type="audio/mpeg">
     </audio>
-    
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-    </div>
 
     <div class="music-player" id="musicToggle">
         <i class="fas fa-music"></i>
@@ -609,24 +461,25 @@
         <header>
             <h1>裤佬书签收藏</h1>
             <div class="avatar"></div>
+            <p class="description">精心整理的各类实用工具与资源，一站式满足您的需求</p>
             
-            <!-- 新增的特殊链接区域 -->
+            <!-- 特殊链接区域 - 重新排版，更紧凑 -->
             <div class="special-links">
-                <a href="https://t.me/stymei1" class="special-link">TG频道</a>
-                <a href="https://github.com/Jsnzkpg/Jsnzkpg" class="special-link">Github</a>
-                <a href="https://stymei.github.io" class="special-link">共享小火箭</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg" class="special-link">节点订阅</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1" class="special-link">IPTV订阅</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" class="special-link">TVbox接口</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" class="special-link">UZ影视订阅</a>
+                <a href="https://t.me/stymei1" class="special-link"><i class="fab fa-telegram"></i> TG频道</a>
+                <a href="https://github.com/Jsnzkpg/Jsnzkpg" class="special-link"><i class="fab fa-github"></i> Github</a>
+                <a href="https://stymei.github.io" class="special-link"><i class="fas fa-rocket"></i> 共享小火箭</a>
+                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg" class="special-link"><i class="fas fa-server"></i> 节点订阅</a>
+                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1" class="special-link"><i class="fas fa-tv"></i> IPTV订阅</a>
+                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" class="special-link"><i class="fas fa-film"></i> TVbox接口</a>
+                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" class="special-link"><i class="fas fa-play-circle"></i> UZ影视订阅</a>
             </div>
         </header>
         
-        <!-- 修改后的跑马灯广告位 - 单个链接 -->
+        <!-- 跑马灯广告位 -->
         <div class="marquee-container">
             <div class="marquee">
                 <span class="marquee-content">
-                    <a href="https://kelayun.notepin.co" class="marquee-link">✈️本人自用机场分享/月付2元1000G</a>
+                    <a href="https://kelayun.notepin.co" class="marquee-link">✈️ 本人自用机场分享 / 月付2元1000G流量 ✈️</a>
                 </span>
             </div>
         </div>
@@ -988,12 +841,12 @@
                 <div class="bookmark-links">
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://gh-proxy.com/https://github.com/2dust/v2rayNG/releases/download/1.10.26/v2rayNG_1.10.26_armeabi-v7a.apk">安卓端v7a</a>
+                            <a href="https://gh-proxy.com/https://github.com/2dust/v2rayNG/releases/download/1.10.26/v2rayNG_1.10.26_armeabi_v7a.apk">安卓端v7a</a>
                         </div>
                     </div>
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://gh-proxy.com/https://github.com/2dust/v2rayNG/releases/download/1.10.26/v2rayNG_1.10.26_arm64-v8a.apk">安卓端v8a</a>
+                            <a href="https://gh-proxy.com/https://github.com/2dust/v2rayNG/releases/download/1.10.26/v2rayNG_1.10.26_arm64_v8a.apk">安卓端v8a</a>
                         </div>
                     </div>
                     <div class="link-row">
@@ -1260,6 +1113,7 @@
         </div>
         
         <footer>
+            <p>© 2025 裤佬书签收藏 | 精心整理，持续更新</p>
         </footer>
     </div>
 
@@ -1273,69 +1127,86 @@
           s.parentNode.insertBefore(hm, s);
         })();
 
-        // 金光闪闪动画
-        function createGoldenLight() {
-            const overlay = document.getElementById('golden-overlay');
+        // 星空背景动画
+        function initStars() {
+            const canvas = document.getElementById('stars');
+            const ctx = canvas.getContext('2d');
             
-            // 创建闪烁的星星
-            for (let i = 0; i < 30; i++) {
-                const star = document.createElement('div');
-                star.className = 'golden-star';
-                star.style.width = Math.random() * 10 + 5 + 'px';
-                star.style.height = star.style.width;
-                star.style.top = Math.random() * 100 + '%';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = Math.random() * 3 + 2 + 's';
-                overlay.appendChild(star);
+            // 设置canvas尺寸为窗口大小
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
             
-            // 创建流动的金光
-            for (let i = 0; i < 5; i++) {
-                const light = document.createElement('div');
-                light.style.position = 'absolute';
-                light.style.width = '200px';
-                light.style.height = '200px';
-                light.style.background = 'radial-gradient(circle, rgba(255,215,0,0.5), transparent 70%)';
-                light.style.borderRadius = '50%';
-                light.style.top = Math.random() * 100 + '%';
-                light.style.left = Math.random() * 100 + '%';
-                light.style.animation = `moveLight ${Math.random() * 20 + 10}s linear infinite`;
-                light.style.animationDelay = Math.random() * 5 + 's';
-                overlay.appendChild(light);
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // 星星类
+            class Star {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 0.5;
+                    this.speed = Math.random() * 0.5 + 0.1;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+                    this.twinkleDirection = Math.random() > 0.5 ? 1 : -1;
+                }
                 
-                // 添加动画关键帧
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes moveLight {
-                        0% { transform: translate(0, 0); opacity: 0.3; }
-                        25% { transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px); opacity: 0.7; }
-                        50% { transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px); opacity: 0.5; }
-                        75% { transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px); opacity: 0.8; }
-                        100% { transform: translate(0, 0); opacity: 0.3; }
+                update() {
+                    // 星星闪烁效果
+                    this.opacity += this.twinkleSpeed * this.twinkleDirection;
+                    if (this.opacity <= 0.2 || this.opacity >= 0.7) {
+                        this.twinkleDirection *= -1;
                     }
-                `;
-                document.head.appendChild(style);
+                    
+                    // 星星移动
+                    this.y += this.speed;
+                    if (this.y > canvas.height) {
+                        this.y = 0;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
             }
+            
+            // 创建星星
+            const stars = [];
+            const starCount = Math.min(200, Math.floor((canvas.width * canvas.height) / 5000));
+            
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new Star());
+            }
+            
+            // 动画循环
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                stars.forEach(star => {
+                    star.update();
+                    star.draw();
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
         }
         
-        // 主题切换功能
+        // 音乐播放功能
         document.addEventListener('DOMContentLoaded', function() {
-            const themeToggle = document.getElementById('themeToggle');
-            const icon = themeToggle.querySelector('i');
             const musicToggle = document.getElementById('musicToggle');
             const musicIcon = musicToggle.querySelector('i');
             const bgMusic = document.getElementById('bgMusic');
             
-            // 初始化金光动画
-            createGoldenLight();
-            
-            // 检查本地存储的主题偏好
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                icon.classList.replace('fa-moon', 'fa-sun');
-            }
+            // 初始化星空背景
+            initStars();
             
             // 检查本地存储的音乐设置
             const savedMusic = localStorage.getItem('music');
@@ -1343,19 +1214,6 @@
                 bgMusic.play().catch(e => console.log('自动播放被阻止:', e));
                 musicIcon.classList.replace('fa-music', 'fa-volume-up');
             }
-            
-            // 切换主题
-            themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                
-                if (document.body.classList.contains('dark-mode')) {
-                    icon.classList.replace('fa-moon', 'fa-sun');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    icon.classList.replace('fa-sun', 'fa-moon');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
             
             // 切换音乐
             musicToggle.addEventListener('click', function() {
@@ -1378,27 +1236,6 @@
                 }
                 document.removeEventListener('click', firstInteraction);
             }, { once: true });
-            
-            // 监听系统主题变化
-            const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-            
-            function handleSystemThemeChange(e) {
-                if (e.matches) {
-                    document.body.classList.add('dark-mode');
-                    icon.classList.replace('fa-moon', 'fa-sun');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    icon.classList.replace('fa-sun', 'fa-moon');
-                    localStorage.setItem('theme', 'light');
-                }
-            }
-            
-            // 如果没有手动设置过主题，则跟随系统
-            if (!savedTheme) {
-                darkModeMediaQuery.addListener(handleSystemThemeChange);
-                handleSystemThemeChange(darkModeMediaQuery);
-            }
             
             // 复制跑马灯内容以实现无缝循环
             const marquee = document.querySelector('.marquee');
