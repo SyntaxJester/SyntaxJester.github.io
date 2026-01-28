@@ -261,25 +261,146 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
         
-        .bookmark-description {
-            color: #fff;
-            font-size: 18px;
+        /* 高科技折叠标题样式 */
+        .bookmark-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
             margin-bottom: 15px;
+            padding-bottom: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        /* 科技感标题文字 */
+        .bookmark-title {
+            color: #ffffff;
+            font-size: 20px;
             line-height: 1.3;
             font-weight: bold;
             text-align: center;
             position: relative;
-            padding-bottom: 10px;
+            padding: 0 10px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
         }
         
-        .bookmark-description::after {
-            content: "";
+        .bookmark-header:hover .bookmark-title {
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            color: #a3d9ff;
+        }
+        
+        .bookmark-header.collapsed .bookmark-title {
+            color: #a3d9ff;
+            text-shadow: 0 0 15px rgba(163, 217, 255, 0.6);
+        }
+        
+        /* 科技感折叠指示器 - 线条动画 */
+        .fold-indicator {
+            position: relative;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.5) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            border-radius: 2px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .fold-indicator::before {
+            content: '';
             position: absolute;
-            bottom: 0;
-            left: 25%;
-            width: 50%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.3);
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 2.5s infinite;
+        }
+        
+        .bookmark-header:hover .fold-indicator {
+            background: linear-gradient(90deg, 
+                rgba(163, 217, 255, 0) 0%, 
+                rgba(163, 217, 255, 0.7) 50%, 
+                rgba(163, 217, 255, 0) 100%);
+            height: 3px;
+            box-shadow: 0 0 8px rgba(163, 217, 255, 0.3);
+        }
+        
+        .bookmark-header.collapsed .fold-indicator {
+            background: linear-gradient(90deg, 
+                rgba(163, 217, 255, 0) 0%, 
+                rgba(163, 217, 255, 0.9) 50%, 
+                rgba(163, 217, 255, 0) 100%);
+            height: 3px;
+            box-shadow: 0 0 12px rgba(163, 217, 255, 0.5);
+        }
+        
+        .bookmark-header.collapsed .fold-indicator::before {
+            background: linear-gradient(90deg, 
+                rgba(163, 217, 255, 0) 0%, 
+                rgba(163, 217, 255, 1) 50%, 
+                rgba(163, 217, 255, 0) 100%);
+            animation: shimmer-fast 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes shimmer-fast {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* 折叠状态指示器 - 高科技脉冲点 */
+.fold-status {
+    display: none; /* 隐藏圆点 */
+    /* 以下是原有的样式，但会被display: none覆盖 */
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.4s ease;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+        
+        .bookmark-header:hover .fold-status {
+            background: rgba(163, 217, 255, 0.5);
+            box-shadow: 0 0 8px rgba(163, 217, 255, 0.4);
+        }
+        
+        .bookmark-header.collapsed .fold-status {
+            background: rgba(163, 217, 255, 0.9);
+            box-shadow: 0 0 12px rgba(163, 217, 255, 0.7);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { 
+                box-shadow: 0 0 0 0 rgba(163, 217, 255, 0.7);
+                transform: scale(1);
+            }
+            50% { 
+                transform: scale(1.2);
+            }
+            100% { 
+                box-shadow: 0 0 0 10px rgba(163, 217, 255, 0);
+                transform: scale(1);
+            }
         }
         
         .bookmark-links {
@@ -287,6 +408,17 @@
             flex-direction: column;
             flex-grow: 1;
             gap: 10px;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            max-height: 1000px;
+            overflow: hidden;
+        }
+        
+        .bookmark-links.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+            gap: 0;
         }
         
         .link-row {
@@ -408,8 +540,8 @@
                 border-radius: 25px;
             }
             
-            .bookmark-description {
-                font-size: 16px;
+            .bookmark-title {
+                font-size: 18px;
             }
             
             .link-item a {
@@ -457,6 +589,14 @@
             .link-item {
                 margin: 0;
             }
+            
+            .bookmark-title {
+                font-size: 16px;
+            }
+            
+            .fold-indicator {
+                width: 70%;
+            }
         }
     </style>
 </head>
@@ -486,7 +626,7 @@
     
     <!-- 音乐播放器 -->
     <audio id="bgMusic" loop>
-        <source src="https://mpimg.cn/view.php/023ee037615f8ac3f5ff7cecd7ae6ec5.mp3" type="audio/mpeg">
+        <source src="https://mpimg.cn/view.php/e23cfe4f043fed63996b9c2aa3e523d9.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-player" id="musicToggle">
@@ -504,21 +644,27 @@
                 <a href="https://github.com/Jsnzkpg/Jsnzkpg" class="special-link"><i class="fab fa-github"></i> Github</a>
                 <a href="https://stymei.github.io" class="special-link"><i class="fas fa-rocket"></i> 裤佬共享小火箭</a>
                 <a href="https://pyapk.github.io" class="special-link"><i class="fas fa-rocket"></i> 裤佬Github加速</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg" class="special-link"><i class="fas fa-server"></i> 裤佬节点订阅</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1" class="special-link"><i class="fas fa-tv"></i> 裤佬IPTV订阅</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" class="special-link"><i class="fas fa-film"></i> 裤佬TVbox订阅</a>
-                <a href="https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" class="special-link"><i class="fas fa-play-circle"></i> 裤佬UZ影视订阅</a>
+                <a href="https://Jsnzkpg.github.io/Jsnzkpg" class="special-link"><i class="fas fa-sync"></i> 裤佬节点订阅转换</a>
+                <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg" class="special-link"><i class="fas fa-server"></i> 裤佬节点订阅</a>
+                <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1" class="special-link"><i class="fas fa-tv"></i> 裤佬IPTV订阅</a>
+                <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2" class="special-link"><i class="fas fa-film"></i> 裤佬TVbox订阅</a>
+                <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3" class="special-link"><i class="fas fa-play-circle"></i> 裤佬UZ影视订阅</a>
+                <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5" class="special-link"><i class="fas fa-paw"></i> 裤佬index.js.md5订阅</a>
             </div>
         </header>
         
         <div class="bookmarks">
             <!-- TVbox软件合辑{空壳子} -->
             <div class="bookmark">
-                <div class="bookmark-description"> TVbox软件合辑{空壳子} </div>
+                <div class="bookmark-header" onclick="toggleBookmark(this)">
+                    <div class="bookmark-title">TVbox软件合辑{空壳子}</div>
+                    <div class="fold-indicator"></div>
+                    <div class="fold-status"></div>
+                </div>
                 <div class="bookmark-links">
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://upld.zone.id/uploads/q9iq9e5iq/tvboxlvse.json">复制TVbox永久订阅</a>
+                            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg2">复制TVbox永久订阅</a>
                         </div>
                     </div>
                     <div class="link-row">
@@ -577,11 +723,15 @@
             
             <!-- IPTV软件合辑{空壳子}-->
             <div class="bookmark">
-                <div class="bookmark-description"> IPTV软件合辑{空壳子}</div>
+                <div class="bookmark-header" onclick="toggleBookmark(this)">
+                    <div class="bookmark-title">IPTV软件合辑{空壳子}</div>
+                    <div class="fold-indicator"></div>
+                    <div class="fold-status"></div>
+                </div>
                 <div class="bookmark-links">
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://upld.zone.id/uploads/q9iq9e5iq/lvse.txt">复制IPTV永久订阅</a>
+                            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg1">复制IPTV永久订阅</a>
                         </div>
                     </div>
                     <div class="link-row">
@@ -641,6 +791,26 @@
                     </div>
                     <div class="link-row">
                         <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/oa557a94"> 极致-TV-脱壳版 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://gh-proxy.org/https://github.com/shnulaa/FlutterIPTV/releases/download/v1.4.18/flutteriptv-Windows-x64-Setup.exe"> LOTUS-Win-1.4.18 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://gh-proxy.org/https://github.com/shnulaa/FlutterIPTV/releases/download/v1.4.18/flutteriptv-Android-Mobile-arm64-v8a.apk"> LOTUS-安卓-1.4.18 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://gh-proxy.org/https://github.com/shnulaa/FlutterIPTV/releases/download/v1.4.18/flutteriptv-AndroidTV-arm64-v8a.apk"> LOTUS-TV-1.4.18 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
                             <a href="https://streamshare.wireway.ch/download/g6xmkr37"> DIYP影音-TV-经典版 </a>
                         </div>
                     </div>
@@ -652,7 +822,6 @@
                     <div class="link-row">
                         <div class="link-item">
                             <a href="https://streamshare.wireway.ch/download/to3j9w01"> 派大星-TV-1.0.6 </a>
-
                         </div>
                     </div>
                 </div>
@@ -660,31 +829,25 @@
 
             <!-- index.js.md5软件合辑{空壳子}-->
             <div class="bookmark">
-                <div class="bookmark-description"> index.js.md5软件合辑{空壳子} </div>
+                <div class="bookmark-header" onclick="toggleBookmark(this)">
+                    <div class="bookmark-title">index.js.md5软件合辑{空壳子}</div>
+                    <div class="fold-indicator"></div>
+                    <div class="fold-status"></div>
+                </div>
                 <div class="bookmark-links">
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://raw.githubusercontent.com/4TVBox/Cat/refs/heads/main/index.js.md5">复制下面软件通用订阅❶</a>
+                            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/stymei/Jsnzkpg/index.js.md5">复制index.js.md5永久订阅</a>
                         </div>
                     </div>
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://9280.kstore.vip/cat/index.js.md5"> 复制下面软件通用订阅❷</a>
+                            <a href="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN"> MiraPlay下载地址 </a>
                         </div>
                     </div>
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://9764.kstore.space/xuenai/catvod/index.js.md5"> 复制下面软件通用订阅❸ </a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://14256.kstore.space/index.js.md5"> 复制下面软件通用订阅❹ </a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://9764.kstore.vip/lmentor/catvod/index.js.md5"> 复制下面软件通用订阅❺ </a>
+                            <a href="https://apps.apple.com/us/app/jstv/id6742569460?l=zh-Hans-CN"> JSTV下载地址 </a>
                         </div>
                     </div>
                     <div class="link-row">
@@ -704,12 +867,85 @@
                     </div>
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://apps.apple.com/us/app/miraplay/id6749287494?l=zh-Hans-CN"> MiraPlay下载地址 </a>
+                            <a href="https://testflight.apple.com/join/ywzcMKS3">魔力云播下载地址</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- UZ影视专区{空壳子} -->
+            <div class="bookmark">
+                <div class="bookmark-header" onclick="toggleBookmark(this)">
+                    <div class="bookmark-title">UZ影视专区{空壳子}</div>
+                    <div class="fold-indicator"></div>
+                    <div class="fold-status"></div>
+                </div>
+                <div class="bookmark-links">
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg3">复制UZ影视永久订阅</a>
+                        </div>
+                    </div>
+                  <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/xfxwqm8w">UZ影视-苹果-1.6.68</a>
                         </div>
                     </div>
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://testflight.apple.com/join/ywzcMKS3">魔力云播下载地址</a>
+                            <a href="https://streamshare.wireway.ch/download/kpuc4lcn">UZ影视-安卓/TV-v7a-1.6.68</a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/5izyjocb"> UZ影视-安卓-v8a-1.6.68 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/yq9fh786"> UZ影视-Win-msix-1.6.68 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/m1uhc3eb"> UZ影视-Mac-dmg-1.6.68 </a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/1xv2q1br"> UZ影视-x86专用-1.6.68 </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Telegram第3方软件合辑 -->
+            <div class="bookmark">
+                <div class="bookmark-header" onclick="toggleBookmark(this)">
+                    <div class="bookmark-title">Telegram第3方软件合辑</div>
+                    <div class="fold-indicator"></div>
+                    <div class="fold-status"></div>
+                </div>
+                <div class="bookmark-links">
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://streamshare.wireway.ch/download/z7128inw"> Telegram Plus-安卓</a>
+                        </div>
+                    </div>
+                  <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://gh-proxy.org/https://github.com/Keeperorowner/NagramX_Fork/releases/download/1214/NagramX-v12.1.1.1224.-universal-release.apk">NagramX-安卓</a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://testflight.apple.com/join/e1v9O7jC">Turrit-苹果</a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://testflight.apple.com/join/3TUwXHbH">Swiftgram-苹果</a>
                         </div>
                     </div>
                 </div>
@@ -718,11 +954,15 @@
 
             <!-- 代理工具软件合辑 -->
             <div class="bookmark">
-                <div class="bookmark-description"> 代理工具软件合辑 </div>
+                <div class="bookmark-header" onclick="toggleBookmark(this)">
+                    <div class="bookmark-title">代理工具软件合辑</div>
+                    <div class="fold-indicator"></div>
+                    <div class="fold-status"></div>
+                </div>
                 <div class="bookmark-links">
                     <div class="link-row">
                         <div class="link-item">
-                            <a href="https://upld.zone.id/uploads/q9iq9e5iq/clash.txt">复制翻墙永久订阅</a>
+                            <a href="https://gh-proxy.org/https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg">复制翻墙永久订阅</a>
                         </div>
                     </div>
                     <div class="link-row">
@@ -753,6 +993,11 @@
                     <div class="link-row">
                         <div class="link-item">
                             <a href="https://github.com/xiaobaigroup/ClashBox/releases">ClashBox下载地址</a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
+                            <a href="https://clashmac.app">ClashMac下载地址</a>
                         </div>
                     </div>
                     <div class="link-row">
@@ -792,50 +1037,12 @@
                     </div>
                     <div class="link-row">
                         <div class="link-item">
+                            <a href="https://github.com/dyhkwong/Exclave/releases">Exclave下载地址</a>
+                        </div>
+                    </div>
+                    <div class="link-row">
+                        <div class="link-item">
                             <a href="https://stymei.github.io">ios小火箭下载地址</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            
-            <!-- UZ影视专区{空壳子} -->
-            <div class="bookmark">
-                <div class="bookmark-description">UZ影视专区{空壳子}</div>
-                <div class="bookmark-links">
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://upld.zone.id/uploads/q9iq9e5iq/uz.json">复制UZ影视永久订阅</a>
-                        </div>
-                    </div>
-                  <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://streamshare.wireway.ch/download/xfxwqm8w">UZ影视-苹果-1.6.68</a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://streamshare.wireway.ch/download/kpuc4lcn">UZ影视-安卓/TV-v7a-1.6.68</a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://streamshare.wireway.ch/download/5izyjocb"> UZ影视-安卓-v8a-1.6.68 </a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://streamshare.wireway.ch/download/yq9fh786"> UZ影视-Win-msix-1.6.68 </a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://streamshare.wireway.ch/download/m1uhc3eb"> UZ影视-Mac-dmg-1.6.68 </a>
-                        </div>
-                    </div>
-                    <div class="link-row">
-                        <div class="link-item">
-                            <a href="https://streamshare.wireway.ch/download/1xv2q1br"> UZ影视-x86专用-1.6.68 </a>
                         </div>
                     </div>
                 </div>
@@ -903,7 +1110,55 @@
             const marqueeContent = document.querySelector('.marquee-content');
             const clone = marqueeContent.cloneNode(true);
             marquee.appendChild(clone);
+            
+            // 初始化所有卡片状态
+            initializeBookmarks();
         });
+        
+        // 卡片折叠功能
+        function toggleBookmark(headerElement) {
+            const bookmark = headerElement.closest('.bookmark');
+            const links = bookmark.querySelector('.bookmark-links');
+            
+            // 切换折叠状态
+            headerElement.classList.toggle('collapsed');
+            links.classList.toggle('collapsed');
+            
+            // 保存状态到本地存储
+            const bookmarkId = Array.from(bookmark.parentElement.children).indexOf(bookmark);
+            const isCollapsed = headerElement.classList.contains('collapsed');
+            saveBookmarkState(bookmarkId, isCollapsed);
+        }
+        
+
+// 初始化书签状态 - 默认折叠，但如果用户之前有设置则使用用户设置
+function initializeBookmarks() {
+    const bookmarks = document.querySelectorAll('.bookmark');
+    
+    bookmarks.forEach((bookmark, index) => {
+        // 从本地存储获取状态，如果没有设置过则默认折叠
+        const isCollapsed = localStorage.getItem(`bookmark_${index}`) === 'true' || 
+                           localStorage.getItem(`bookmark_${index}`) === null; // 如果没设置过，也默认为折叠
+        
+        const header = bookmark.querySelector('.bookmark-header');
+        const links = bookmark.querySelector('.bookmark-links');
+        
+        if (isCollapsed) {
+            header.classList.add('collapsed');
+            links.classList.add('collapsed');
+        }
+        
+        // 如果是第一次访问（没有本地存储记录），则保存默认折叠状态
+        if (localStorage.getItem(`bookmark_${index}`) === null) {
+            localStorage.setItem(`bookmark_${index}`, 'true');
+        }
+    });
+}
+        
+        // 保存书签状态到本地存储
+        function saveBookmarkState(index, isCollapsed) {
+            localStorage.setItem(`bookmark_${index}`, isCollapsed);
+        }
     </script>
 </body>
 </html>
